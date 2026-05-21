@@ -1,0 +1,13 @@
+FROM node:20-alpine AS builder
+WORKDIR /app
+RUN corepack enable
+COPY . .
+ARG VITE_API_URL=
+ENV VITE_API_URL=$VITE_API_URL
+RUN pnpm install --frozen-lockfile=false
+RUN pnpm --filter @myfond/web build
+
+FROM nginx:1.27-alpine
+COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/apps/web/dist /usr/share/nginx/html
+EXPOSE 80
