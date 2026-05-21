@@ -11,6 +11,7 @@ export default function App() {
   const [content, setContent] = useState<SiteContent>(fallbackContent);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
+  const movingWorkItems = [...content.work, ...content.work, ...content.work];
 
   useEffect(() => {
     loadSiteContent().then(setContent).catch(() => setContent(fallbackContent));
@@ -113,10 +114,18 @@ export default function App() {
         </div>
       </section>
 
-      <section id="work" className="section">
-        <div className="sectionTitle"><span>Work</span><h2>Как выглядит результат</h2></div>
-        <div className="cards three">
-          {content.work.map((item) => <article className="card work" key={item.title}><b>{item.metric}</b><h3>{item.title}</h3><p>{item.description}</p></article>)}
+      <section id="work" className="section workSection">
+        <div className="sectionTitle"><span>Tasks</span><h2>Задачи движутся горизонтальной лентой</h2></div>
+        <div className="workMarquee">
+          <div className="workTrack">
+            {movingWorkItems.map((item, index) => (
+              <article className="workCard" key={item.title + index}>
+                <b>{item.metric}</b>
+                <h3>{item.title}</h3>
+                <p>{item.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
