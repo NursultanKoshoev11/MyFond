@@ -61,7 +61,6 @@ export default function App() {
           <a href="#work">Работы</a>
           <a href="#process">Процесс</a>
           <a href="#contact">Контакт</a>
-          <a href="/admin">Админ</a>
         </nav>
       </header>
 
