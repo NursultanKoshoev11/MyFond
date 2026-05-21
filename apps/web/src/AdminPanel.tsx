@@ -2,6 +2,7 @@ import { FormEvent, useEffect, useState } from "react";
 import type { ProcessStep, Service, SiteContent, WorkItem } from "@myfond/shared";
 import { siteContent as fallbackContent } from "@myfond/shared";
 import { loadAdminContent, saveAdminContent } from "./api";
+import "./admin.css";
 
 type StatItem = SiteContent["stats"][number];
 
