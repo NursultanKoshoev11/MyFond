@@ -43,6 +43,10 @@ function isAdmin(request: { headers: Record<string, unknown> }) {
   return request.headers["x-admin-token"] === config.ADMIN_TOKEN;
 }
 
+function parseSiteContent(body: unknown): SiteContent {
+  return siteContentSchema.parse(body) as unknown as SiteContent;
+}
+
 export async function siteRoutes(app: FastifyInstance) {
   app.get("/site", async () => ({
     ok: true,
@@ -65,17 +69,22 @@ export async function siteRoutes(app: FastifyInstance) {
       return reply.code(401).send({ ok: false, error: "Unauthorized" });
     }
 
-    const parsed = siteContentSchema.safeParse(request.body);
+    let content: SiteContent;
 
-    if (!parsed.success) {
-      return reply.code(400).send({
-        ok: false,
-        error: "Invalid site content",
-        details: parsed.error.flatten()
-      });
+    try {
+      content = parseSiteContent(request.body);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return reply.code(400).send({
+          ok: false,
+          error: "Invalid site content",
+          details: error.flatten()
+        });
+      }
+
+      throw error;
     }
 
-    const content = parsed.data as SiteContent;
     const saved = await writeSiteContent(content);
 
     return {
