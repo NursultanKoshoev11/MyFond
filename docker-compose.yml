@@ -9,7 +9,7 @@ services:
       PORT: 4000
       HOST: 0.0.0.0
       WEB_ORIGIN: http://localhost:5173
-      ADMIN_TOKEN: myfond-admin-token
+      ADMIN_TOKEN: ${ADMIN_TOKEN:?Set ADMIN_TOKEN in .env before running Docker Compose}
       CONTENT_FILE_PATH: /app/data/site-content.json
     volumes:
       - myfond_content:/app/data
