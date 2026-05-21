@@ -4,10 +4,15 @@ import { ArrowRight, Bot, Code2, Layers3, Send, Sparkles, Workflow } from "lucid
 import type { SiteContent } from "@myfond/shared";
 import { siteContent as fallbackContent } from "@myfond/shared";
 import { loadSiteContent, sendContactRequest } from "./api";
+import AdminPanel from "./AdminPanel";
 
 const icons = [Code2, Layers3, Workflow, Bot];
 
 export default function App() {
+  if (window.location.pathname === "/admin") {
+    return <AdminPanel />;
+  }
+
   const [content, setContent] = useState<SiteContent>(fallbackContent);
   const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
@@ -56,6 +61,7 @@ export default function App() {
           <a href="#work">Работы</a>
           <a href="#process">Процесс</a>
           <a href="#contact">Контакт</a>
+          <a href="/admin">Админ</a>
         </nav>
       </header>
 
