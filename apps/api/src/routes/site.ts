@@ -1,5 +1,6 @@
 import type { FastifyInstance } from "fastify";
 import { z } from "zod";
+import type { SiteContent } from "@myfond/shared";
 import { config } from "../config.js";
 import { readSiteContent, writeSiteContent } from "../content-store.js";
 
@@ -74,7 +75,8 @@ export async function siteRoutes(app: FastifyInstance) {
       });
     }
 
-    const saved = await writeSiteContent(parsed.data);
+    const content = parsed.data as SiteContent;
+    const saved = await writeSiteContent(content);
 
     return {
       ok: true,
