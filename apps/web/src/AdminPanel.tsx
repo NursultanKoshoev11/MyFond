@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, ReactNode, useEffect, useState } from "react";
 import type { ProcessStep, Service, SiteContent, WorkItem } from "@myfond/shared";
 import { siteContent as fallbackContent } from "@myfond/shared";
 import { loadAdminContent, saveAdminContent } from "./api";
@@ -171,7 +171,7 @@ function EditableList<T>({ title, section, items, addItem, removeItem, children 
   items: T[];
   addItem: (section: SectionName) => void;
   removeItem: (section: SectionName, index: number) => void;
-  children: (item: T, index: number) => JSX.Element;
+  children: (item: T, index: number) => ReactNode;
 }) {
   return (
     <div className="adminBlock">
