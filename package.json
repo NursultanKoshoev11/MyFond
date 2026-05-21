@@ -1,0 +1,16 @@
+{
+  "name": "myfond",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm --filter @myfond/shared build && concurrently -n api,web -c blue,magenta \"pnpm --filter @myfond/api dev\" \"pnpm --filter @myfond/web dev\"",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "clean": "pnpm -r clean && rm -rf node_modules"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "typescript": "^5.7.2"
+  }
+}
